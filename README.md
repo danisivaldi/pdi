@@ -3,7 +3,7 @@
 With this project we're trying to learn more about steganography and it's use with audios. We're going to hide a movie soundtrack in it's poster image, merging the two and then extracting the soundtrack. 
 
 This are the movies we chose:
-
+![alt text](https://github.com/danisivaldi/pdi/blob/master/guardiansofthegalaxy.jpg)
 
 Students:
 Daniel Sivaldi Feres 9912275
