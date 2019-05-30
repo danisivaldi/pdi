@@ -10,10 +10,16 @@
  
  We're going to use the MSB Substitution method to hide the audio. It basically replaces the most significant bit in some bytes of the colored image with some data of the audio. As we use colored image in the RGB color channel, the work is done within the 3 sets of 8 bits for each pixel, each byte representing red, green and blue. If we change just a few bits in each pixel (inserting the audio data), the image will stay almost the same to the human eye.
  
+ Hiding process:
  First we need to read the cover image;
  Convert the audio file into a sequence of bits;
  Insert the bits of the audio into each pixel of the image;
  Form the stego-image;
+ 
+ Retrieving the audio:
+ Read the stego-image;
+ Check the pixel bits with the MSB algorithm and find the bits of the audio;
+ Reconstruct the audio;
  
 3. Examples
 
