@@ -18,23 +18,38 @@ We're going to use the MSB Substitution method to hide the audio. It basically r
  
 The libraries we use are __imageio__ and __matplotlib__ to read the images and make some adjustments, __numpy__ to use arrays and matrices for the algorithm part, __AudioSegment__ from __pydub__ and __wave__ to deal with the audio in _.mp3_ and _.wav_ formats
 
+```python
+import numpy as np
+import imageio
+import matplotlib.image as mpimg
+from matplotlib import pyplot as plt
+from pydub import AudioSegment
+import wave
+```
+
 To begin, we read the movie poster image
+
+```python
+poster1 = mpimg.imread("five_hundred_days_of_summer_xxlg.jpg")
+```
 
 Then the audio. Note that we open the audio (wich is a _.mp3_ file) and convert it to a _.wav_, because .......
 
+```python
+songmp31 = AudioSegment.from_mp3("Sing Street Riddle of the Model clip - in cinemas May 20.mp3")
+songmp31.export("Kalimba.wav", format="wav")
+audio = wave.open("Kalimba.wav", mode = None)
+```
+
 To prepare for the insertion in the image, we transform the _.wav_ file into an array of bytes, so we can manipulate then easier
 
+```python
+allbytes = audio.readframes(audio.getnframes())
+allbytes = bytearray(allbytes)
+allbytes = extendBytes(allbytes)
+```
 
- 
- 
-
- First we need to read the cover image;
- Convert the audio file into a sequence of bits;
- Insert the bits of the audio into each pixel of the image;
- Form the stego-image;
-
-
-### 4Retrieving the audio:
+### Retrieving the audio:
 
 
  Read the stego-image; 
