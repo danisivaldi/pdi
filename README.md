@@ -19,7 +19,7 @@ As we like very much movies, we chose this theme for our project.
   
 ## 2. The Method
  
-We're going to use the MSB Substitution method to hide the audio. It basically replaces the most significant bit in some bytes of the colored image with some data of the audio. We read a paper tha talked about the method and as we wanted a diferente approach for the hiding algorithm, we thought we should try it.
+We're going to use the MSB Substitution method to hide the audio. It basically replaces the most significant bit in some bytes of the colored image with some data of the audio. We read a paper that talked about the method and as we wanted a diferent approach for the hiding algorithm, we thought we should try it.
 
 As we use colored image in the RGB color channel, the work is done within the 3 sets of 8 bits for each pixel, each byte representing red, green and blue. If we change just a few bits in each pixel (inserting the audio data), the image will stay almost the same to the human eye.
  
@@ -132,7 +132,7 @@ The only bit of code that changes between the methods is the computing of the ne
 Then
 
 ```python
-newR = payload[i][0:2] + r[2:]
+newR = r[2:] + payload[i][0:2]
 ```
 
 and now
