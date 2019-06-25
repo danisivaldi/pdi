@@ -110,10 +110,8 @@ j+=1
 
 This are the movies we chose:
 
-Guardians of the Galaxy
+Guardians of the Galaxy                    Lalaland                    Pulp Fiction
 
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/guardiansofthegalaxy.jpg" align="left" height="30%" width="30%" ></a>
-Lalaland
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/lalaland.jpg" align="left" height="30%" width="30%" ></a>
-Pulp Fiction
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/pulpfiction.jpg" align="left" height="30%" width="30%" ></a>
