@@ -115,6 +115,9 @@ This are the movies we chose:
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/500.jpg" align="left" height="30%" width="30%" ></a>
 
 
+
+
+
 And the results after we apply the hiding algorithm:
 
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/her_msb.jpg" align="left" height="30%" width="30%" ></a>
@@ -147,6 +150,9 @@ Again, the movies:
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/her_xxlg.jpg" align="left" height="30%" width="30%" ></a>
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/spiderman.jpg" align="left" height="30%" width="30%" ></a>
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/500.jpg" align="left" height="30%" width="30%" ></a>
+
+
+
 
 
 And the results after we apply the hiding algorithm:
