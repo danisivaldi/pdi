@@ -11,10 +11,11 @@ Final assignment for Digital Image Processing. The final code can be found in th
 ## 1. Introduction
 
 With this project we're trying to learn more about steganography and it's use with audios. We're going to hide a movie scene audio in it's poster image, merging the two and then extracting the audio later. 
-  
+
 Unlike encryption, that conceals the data by scrambling information, steganography hides the important data in another file, that doesn't appear to be anormal.
   
-As we like very much movie, we chose this theme for our project.
+As we like very much movies, we chose this theme for our project.
+
   
 ## 2. The Method
  
@@ -25,7 +26,7 @@ As we use colored image in the RGB color channel, the work is done within the 3 
  
 ### Hiding process:
 
-The libraries we use are __imageio__ and __matplotlib__ to read the images and make some adjustments, __numpy__ to use arrays and matrices for the algorithm part, __AudioSegment__ from __pydub__ and __wave__ to deal with the audio in _.mp3_ and _.wav_ formats
+The libraries we use are __imageio__ and __matplotlib__ to read the images and make some adjustments, __numpy__ to use arrays and matrices for the algorithm part, __AudioSegment__ from __pydub__ to deal with the audio in _.mp3_ format
 
 ```python
 import numpy as np
@@ -33,7 +34,6 @@ import imageio
 import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 from pydub import AudioSegment
-import wave
 ```
 
 To begin, we read the movie poster image
@@ -42,20 +42,11 @@ To begin, we read the movie poster image
 poster1 = mpimg.imread("five_hundred_days_of_summer_xxlg.jpg")
 ```
 
-Then the audio. Note that we open the audio (wich is a _.mp3_ file) and convert it to a _.wav_, because that's the format we need to convert to it to bytes
+To prepare for the insertion in the image, we open and transform the _.mp3_ file into an array of bytes, so we can manipulate then easier
 
 ```python
-songmp31 = AudioSegment.from_mp3("Sing Street Riddle of the Model clip - in cinemas May 20.mp3")
-songmp31.export("Kalimba.wav", format="wav")
-audio = wave.open("Kalimba.wav", mode = None)
-```
-
-To prepare for the insertion in the image, we transform the _.wav_ file into an array of bytes, so we can manipulate then easier
-
-```python
-allbytes = audio.readframes(audio.getnframes())
-allbytes = bytearray(allbytes)
-allbytes = extendBytes(allbytes)
+data = open("HER (Theodore Memories).mp3", 'rb').read()
+data = extendBytes(data)
 ```
 
 As noticed, we also apply a function __extendBytes()__ to transform the audio bytes. We basically take groups of 2 bits of each byte and extend them, forming a 8 space array, with the first two corresponding the bits of the audio, and the rest of zeros. Intuitively, this loop runs 4 times, as a byte has 8 bits
@@ -119,9 +110,38 @@ j+=1
 
 This are the movies we chose:
 
-<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/guardiansofthegalaxy.jpg" align="left" height="30%" width="30%" ></a>
-<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/lalaland.jpg" align="left" height="30%" width="30%" ></a>
-<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/pulpfiction.jpg" align="left" height="30%" width="30%" ></a>
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/her_xxlg.jpg" align="left" height="30%" width="30%" ></a>
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/five_hundred_days_of_summer_xlg.jpg" align="left" height="30%" width="30%" ></a>
+
+
+And the results after we apply the hiding algorithm:
+
+
+## 4. Retry
+
+As we can cleary see, the results weren't great. The MSB method wasn't effective, even after we modified our approach numerous times. The movie poster can still be recognized, but its not ideal. 
+
+To retry, we applied a diferent algorithm, this time LSB. It's the same idea, but this time we change the least significant bits of the bytes of the image to hide audio data.
+
+The only bit of code that changes between the methods is the computing of the new _r_, _g_ and _b_. This time we add the audio data before the other bits
+
+Then
+
+```python
+newR = payload[i][0:2] + r[2:]
+```
+
+and now
+
+```python
+newR = payload[i][0:2] + r[2:]
+```
+
+Again, the movies:
+
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/her_xxlg.jpg" align="left" height="30%" width="30%" ></a>
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/five_hundred_days_of_summer_xlg.jpg" align="left" height="30%" width="30%" ></a>
+
 
 And the results after we apply the hiding algorithm:
 
@@ -130,8 +150,10 @@ And the results after we apply the hiding algorithm:
 ## 4. Conclusion
 
 To wrap it up, we'd like to present some results of our assignment.
+* Project idea
+  * As we love music and movies, firs we wanted to hide an entire album into a album cover, but that hard beacuse we couldn't find big images for album covers. We changed our minds a lot about the final idea, but we kept finding problems either with image or audio size.
 * Audio handling
-  * We were limited by the format. Working with diferent types of audios wouldn't be as easy, because the libraries we had only let us work with _.wav_ files if we wanted to convert it to bytes
+  * We were limited by the format. Working with diferent types of audios wouldn't be as easy, because the libraries we had only let us work with _.wav_ and _.mp3_ files if we wanted to convert it to bytes. We had a lot of work trying to use _.wav_ files, because we had to convert it from _.mp3_ and convert it to bytes manually, but in the end it didn't work the way we wanted. 
   * On the same line, the size of the audio was also a problem. We tried some compression techniques but they weren't capable to make the audio files smaller enough to fit the images. We had to use rather small audios for the algorithm to work, but they were still significant for our purpose.
 * Image hiding
   * For a next step in the project, we could try to take a large audio, maybe the movie itself, and strip it into loads of smaller parts, to fit various images and scramble then with another algorithm, making the hiding security better.
