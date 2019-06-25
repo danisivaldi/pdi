@@ -10,11 +10,11 @@ Final assignment for Digital Image Processing. The final code can be found in th
 
 ## 1. Introduction
 
-With this project we're trying to learn more about steganography and it's use with audios. We're going to hide a movie audio in it's poster image, merging the two and then extracting the audio later. 
+With this project we're trying to learn more about steganography and it's use with audios. We're going to hide a movie scene audio in it's poster image, merging the two and then extracting the audio later. 
   
 Unlike encryption, that conceals the data by scrambling information, steganography hides the important data in another file, that doesn't appear to be anormal.
   
-As we like very much movies and soundtracks, we chose this theme for our project.
+As we like very much movie, we chose this theme for our project.
   
 ## 2. The Method
  
@@ -42,7 +42,7 @@ To begin, we read the movie poster image
 poster1 = mpimg.imread("five_hundred_days_of_summer_xxlg.jpg")
 ```
 
-Then the audio. Note that we open the audio (wich is a _.mp3_ file) and convert it to a _.wav_, because .......
+Then the audio. Note that we open the audio (wich is a _.mp3_ file) and convert it to a _.wav_, because that's the format we need to convert to it to bytes
 
 ```python
 songmp31 = AudioSegment.from_mp3("Sing Street Riddle of the Model clip - in cinemas May 20.mp3")
@@ -55,6 +55,22 @@ To prepare for the insertion in the image, we transform the _.wav_ file into an 
 ```python
 allbytes = audio.readframes(audio.getnframes())
 allbytes = bytearray(allbytes)
+allbytes = extendBytes(allbytes)
+```
+
+As noticed, we also apply a function __extendBytes()__ to transform the audio bytes. We basically take groups of 2 bits of each byte and extend them, forming a 8 space array, with the first two corresponding the bits of the audio, and the rest of zeros. Intuitively, this loop runs 4 times, as a byte has 8 bits
+
+```python
+def extendBytes(payload):
+  newBytes = []
+  for i in range (len(payload)):
+    for j in range(4): 
+      shift = (192 >>(2*j))
+      newNumber = payload[i] & shift
+      newBytes.append('{0:08b}'.format(newNumber))
+  for j in range(4): 
+    newBytes.append('{0:08b}'.format(0))
+  return newBytes
 ```
 
 Now we can finally apply the MSB Substitution method.
@@ -82,7 +98,7 @@ if i % 3 == 2:
   x = newBitGuardian(x)
 ```
 
-Also, there's a auxiliary function we made __newBitGuardian()__ .....
+Also, there's a auxiliary function we made __newBitGuardian()__ that redo what __extendBytes()__ did. It jumps the 8 bits arrays we formed, taking only the first 2 bits, wich are the bits corresponding to the audio byte
 
 ```python
 def newBitGuardian(x):
@@ -99,19 +115,24 @@ output[j] = [int(newR),int(newG),int(newB)]
 j+=1
 ```
 
-### Retrieving the audio:
-
- Read the stego-image; 
- Check the pixel bits with the MSB algorithm and find the bits of the audio;
- Reconstruct the audio;
-
-
-## 3. Examples
+## 3. Results
 
 This are the movies we chose:
-
-Guardians of the Galaxy                    Lalaland                    Pulp Fiction
 
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/guardiansofthegalaxy.jpg" align="left" height="30%" width="30%" ></a>
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/lalaland.jpg" align="left" height="30%" width="30%" ></a>
 <a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/pulpfiction.jpg" align="left" height="30%" width="30%" ></a>
+
+And the results after we apply the hiding algorithm:
+
+
+
+## 4. Conclusion
+
+To wrap it up, we'd like to present some results of our assignment.
+* Audio handling
+  * We were limited by the format. Working with diferent types of audios wouldn't be as easy, because the libraries we had only let us work with _.wav_ files if we wanted to convert it to bytes
+  * On the same line, the size of the audio was also a problem. We tried some compression techniques but they weren't capable to make the audio files smaller enough to fit the images. We had to use rather small audios for the algorithm to work, but they were still significant for our purpose.
+* Image hiding
+  * For a next step in the project, we could try to take a large audio, maybe the movie itself, and strip it into loads of smaller parts, to fit various images and scramble then with another algorithm, making the hiding security better.
+  * We could also try diferent approches for the method, using another steganography algorithm.
