@@ -112,12 +112,13 @@ This are the movies we chose:
 
 Guardians of the Galaxy
 
-![alt text](https://github.com/danisivaldi/pdi/blob/master/guardiansofthegalaxy.jpg)
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/guardiansofthegalaxy.jpg" align="left" height="30%" width="30%" ></a>
+
 
 Lalaland
 
-![alt text](https://github.com/danisivaldi/pdi/blob/master/lalaland.jpg)
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/lalaland.jpg" align="left" height="30%" width="30%" ></a>
 
 Pulp Fiction
 
-![alt text](https://github.com/danisivaldi/pdi/blob/master/pulpfiction.jpg)
+<a href="url"><img src="https://github.com/danisivaldi/pdi/blob/master/pulpfiction.jpg" align="left" height="30%" width="30%" ></a>
