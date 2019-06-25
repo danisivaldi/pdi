@@ -10,7 +10,7 @@ Final assignment for Digital Image Processing. The final code can be found in th
 
 ## 1. Introduction
 
-With this project we're trying to learn more about steganography and it's use with audios. We're going to hide a movie scene audio in it's poster image, merging the two and then extracting the audio later. 
+With this project we're trying to learn more about steganography and it's use with audios. We're going to hide a movie scene audio in it's poster image, merging the two.
 
 Unlike encryption, that conceals the data by scrambling information, steganography hides the important data in another file, that doesn't appear to be anormal.
   
@@ -19,7 +19,7 @@ As we like very much movies, we chose this theme for our project.
   
 ## 2. The Method
  
-We're going to use the MSB Substitution method to hide the audio. It basically replaces the most significant bit in some bytes of the colored image with some data of the audio. 
+We're going to use the MSB Substitution method to hide the audio. It basically replaces the most significant bit in some bytes of the colored image with some data of the audio. We read a paper tha talked about the method and as we wanted a diferente approach for the hiding algorithm, we thought we should try it.
 
 As we use colored image in the RGB color channel, the work is done within the 3 sets of 8 bits for each pixel, each byte representing red, green and blue. If we change just a few bits in each pixel (inserting the audio data), the image will stay almost the same to the human eye.
  
@@ -157,6 +157,7 @@ And the results after we apply the hiding algorithm:
 To wrap it up, we'd like to present some results of our assignment.
 * Project idea
   * As we love music and movies, firs we wanted to hide an entire album into a album cover, but that hard beacuse we couldn't find big images for album covers. We changed our minds a lot about the final idea, but we kept finding problems either with image or audio size.
+  * The algorithm of choice wasn't the best. We put in a lot of time trying to make the MSB work, and that overloaded us.
 * Audio handling
   * We were limited by the format. Working with diferent types of audios wouldn't be as easy, because the libraries we had only let us work with _.wav_ and _.mp3_ files if we wanted to convert it to bytes. We had a lot of work trying to use _.wav_ files, because we had to convert it from _.mp3_ and convert it to bytes manually, but in the end it didn't work the way we wanted. 
   * On the same line, the size of the audio was also a problem. We tried some compression techniques but they weren't capable to make the audio files smaller enough to fit the images. We had to use rather small audios for the algorithm to work, but they were still significant for our purpose.
